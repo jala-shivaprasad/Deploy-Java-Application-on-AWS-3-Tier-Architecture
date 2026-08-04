@@ -1,55 +1,69 @@
-# EmployeeHub – Employee Management Portal on AWS 3-Tier Architecture
+# 🚀 EmployeeHub - Employee Management Portal on AWS 3-Tier Architecture
 
 ![AWS Architecture](https://imgur.com/b9iHwVc.png)
 
-## 📌 Project Overview
-
-EmployeeHub is a Java Spring Boot web application deployed on AWS using a 3-Tier Architecture. The application allows employees to register, log in, manage their profiles, and securely store data in Amazon RDS MySQL.
-
-This project demonstrates cloud deployment, networking, application hosting, and database integration using AWS services.
+EmployeeHub is a Java Spring Boot web application deployed on AWS using a 3-Tier Architecture. The project demonstrates how to build, deploy, and manage a cloud-based employee management system using Amazon EC2, Apache Tomcat, Amazon RDS MySQL, and an Application Load Balancer.
 
 ---
 
-## 🏗️ Architecture
+## 📌 Project Overview
+
+EmployeeHub is a responsive employee management portal that allows users to:
+
+- Register a new account
+- Login securely
+- View employee profile
+- Edit profile
+- Change password
+- Manage employee information
+- Store employee data in Amazon RDS MySQL
+
+The application is deployed on AWS following a 3-tier architecture.
+
+---
+
+# 🏗️ Architecture
 
 ![3-Tier Architecture](https://imgur.com/3XF0tlJ.png)
 
-### Architecture Flow
+## Architecture Flow
 
 ```
-Users
-      │
-      ▼
-Application Load Balancer
-      │
-      ▼
-Apache Tomcat on EC2
-      │
-      ▼
-Spring Boot Application
-      │
-      ▼
-Amazon RDS MySQL
+                 Internet
+                     │
+                     ▼
+        Application Load Balancer
+                     │
+                     ▼
+          Apache Tomcat on EC2
+                     │
+                     ▼
+      Spring Boot EmployeeHub App
+                     │
+                     ▼
+            Amazon RDS MySQL
 ```
 
 ---
 
-# 🚀 Features
+# ✨ Features
 
 - User Registration
-- User Login Authentication
+- User Login
 - Employee Dashboard
-- Employee Profile
+- Profile Management
 - Edit Profile
 - Change Password
 - Session Management
-- Responsive UI
-- MySQL Database Integration
-- AWS Cloud Deployment
+- Responsive Bootstrap UI
+- JDBC Database Connectivity
+- Amazon RDS Integration
+- AWS EC2 Deployment
+- Apache Tomcat Deployment
 
 ---
 
-# 🛠️ Technology Stack
+# 🛠 Technology Stack
 
 ## Frontend
 
@@ -65,20 +79,21 @@ Amazon RDS MySQL
 - Spring Boot 2.7
 - Spring MVC
 - JDBC
-- Apache Tomcat
+- Apache Tomcat 9
 
 ## Database
 
 - Amazon RDS MySQL
 
-## Cloud
+## Cloud Services
 
-- AWS EC2
+- Amazon EC2
+- Amazon RDS
 - Amazon VPC
 - Public & Private Subnets
 - Internet Gateway
 - NAT Gateway
-- Application Load Balancer
+- Application Load Balancer (ALB)
 - Security Groups
 
 ## Build Tool
@@ -92,15 +107,22 @@ Amazon RDS MySQL
 
 ---
 
-# ☁️ AWS Services Used
+# ☁️ AWS Architecture Components
+
+## Presentation Tier
+
+- Application Load Balancer
+- Browser Access
+
+## Application Tier
 
 - Amazon EC2
-- Amazon RDS
-- Application Load Balancer
-- Amazon VPC
-- Security Groups
-- Internet Gateway
-- NAT Gateway
+- Apache Tomcat
+- Spring Boot Application
+
+## Database Tier
+
+- Amazon RDS MySQL
 
 ---
 
@@ -115,24 +137,74 @@ EmployeeHub
 │   │   ├── resources
 │   │   └── webapp
 │   │        └── pages
+│   │
+│   ├── pom.xml
+│   └── README.md
 │
-├── pom.xml
-└── README.md
+└── target
 ```
 
 ---
 
-# ⚙️ Deployment Steps
+# 🗄 Database
 
-## Clone Repository
+## Database Name
+
+```
+UserDB
+```
+
+## Table
+
+```
+Employee
+```
+
+## Table Structure
+
+| Column | Type |
+|---------|------|
+| id | INT |
+| first_name | VARCHAR |
+| last_name | VARCHAR |
+| email | VARCHAR |
+| username | VARCHAR |
+| password | VARCHAR |
+| regdate | DATE |
+
+---
+
+# ⚙️ Database Configuration
+
+For security reasons, database credentials are **not stored in the repository**.
+
+Configure the following environment variables before running the application:
+
+```bash
+DB_URL=jdbc:mysql://<RDS-ENDPOINT>:3306/<DATABASE_NAME>
+DB_USERNAME=<YOUR_DB_USERNAME>
+DB_PASSWORD=<YOUR_DB_PASSWORD>
+```
+
+The application reads these values from `application.properties`.
+
+---
+
+# 🚀 Build Project
+
+Clone the repository
 
 ```bash
 git clone https://github.com/jala-shivaprasad/Deploy-Java-Application-on-AWS-3-Tier-Architecture.git
 ```
 
----
+Go to project directory
 
-## Build Project
+```bash
+cd EmployeeHub
+```
+
+Build
 
 ```bash
 mvn clean package
@@ -140,7 +212,9 @@ mvn clean package
 
 ---
 
-## Deploy WAR
+# 🚀 Deploy to Apache Tomcat
+
+Copy WAR
 
 ```bash
 sudo cp target/dptweb-1.0.war /opt/tomcat/webapps/
@@ -153,71 +227,69 @@ sudo /opt/tomcat/bin/shutdown.sh
 sudo /opt/tomcat/bin/startup.sh
 ```
 
----
-
-# 🗄 Database
-
-Database: **Amazon RDS MySQL**
-
-Database Name
+Application URL
 
 ```
-UserDB
-```
-
-Table
-
-```
-Employee
-```
-
-Columns
-
-```
-id
-first_name
-last_name
-email
-username
-password
-regdate
+http://<ALB-DNS>/dptweb-1.0/
 ```
 
 ---
 
-# 🔐 Security
+# 📸 Screenshots
 
-- AWS Security Groups
-- Private RDS
-- Session Authentication
-- JDBC Database Connectivity
-
----
-
-# 📷 Screenshots
-
-Add screenshots of:
+Include screenshots of:
 
 - Login Page
 - Registration Page
 - Dashboard
 - Profile Page
 - AWS Architecture
-- ALB
-- EC2
+- Amazon EC2
 - Amazon RDS
+- Application Load Balancer
+- Target Group (Healthy)
 
 ---
 
-# 📈 Future Enhancements
+# 🔒 Security
+
+- Session Authentication
+- AWS Security Groups
+- Private Amazon RDS
+- JDBC Database Connectivity
+- Environment Variable Based Database Configuration
+
+---
+
+# 📈 Future Improvements
 
 - Docker
 - Kubernetes (Amazon EKS)
-- Jenkins CI/CD
+- Jenkins CI/CD Pipeline
 - Terraform
+- GitHub Actions
 - AWS CodePipeline
-- Monitoring with Prometheus & Grafana
-- CloudWatch Logging
+- Prometheus
+- Grafana
+- AWS CloudWatch Monitoring
+
+---
+
+# 🎯 Learning Outcomes
+
+Through this project, I gained hands-on experience with:
+
+- AWS Networking
+- Amazon EC2
+- Apache Tomcat Deployment
+- Spring Boot WAR Deployment
+- Amazon RDS MySQL
+- Application Load Balancer
+- VPC Design
+- Security Groups
+- Maven Build Automation
+- Git & GitHub
+- Java Web Application Deployment
 
 ---
 
@@ -231,10 +303,16 @@ https://github.com/jala-shivaprasad
 
 LinkedIn
 
-(Add your LinkedIn profile URL)
+(Add your LinkedIn Profile URL)
 
 ---
 
-# ⭐ If you found this project helpful
+# ⭐ Support
 
-Please consider giving this repository a ⭐ on GitHub.
+If you found this project helpful,
+
+⭐ Star the repository
+
+🍴 Fork the repository
+
+📢 Share it with others
