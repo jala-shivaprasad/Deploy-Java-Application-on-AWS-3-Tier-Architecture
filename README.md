@@ -1,212 +1,197 @@
-# 🚀 EmployeeHub - Employee Management Portal on AWS 3-Tier Architecture
+# 🚀 EmployeeHub – Employee Management Portal on AWS 3-Tier Architecture
 
 ![AWS Architecture](https://imgur.com/b9iHwVc.png)
 
-EmployeeHub is a Java Spring Boot web application deployed on AWS using a 3-Tier Architecture. The project demonstrates how to build, deploy, and manage a cloud-based employee management system using Amazon EC2, Apache Tomcat, Amazon RDS MySQL, and an Application Load Balancer.
+EmployeeHub is a Java Spring Boot web application deployed on AWS using a secure 3-Tier Architecture. The application demonstrates end-to-end deployment of a Java web application using Amazon EC2, Apache Tomcat, Amazon RDS MySQL, and an Application Load Balancer (ALB).
+
+The project showcases cloud infrastructure, networking, application deployment, database integration, and modern UI implementation.
 
 ---
 
-## 📌 Project Overview
+# 📑 Table of Contents
 
-EmployeeHub is a responsive employee management portal that allows users to:
-
-- Register a new account
-- Login securely
-- View employee profile
-- Edit profile
-- Change password
-- Manage employee information
-- Store employee data in Amazon RDS MySQL
-
-The application is deployed on AWS following a 3-tier architecture.
+1. Project Overview
+2. Architecture
+3. AWS Services Used
+4. Prerequisites
+5. Infrastructure Setup
+6. Application Setup
+7. Database Configuration
+8. Build & Deployment
+9. Screenshots
+10. Project Structure
+11. Technologies Used
+12. Troubleshooting
+13. Future Enhancements
+14. Learning Outcomes
+15. Author
 
 ---
 
-# 🏗️ Architecture
+# 📌 Project Overview
+
+EmployeeHub is a cloud-based employee management portal where users can:
+
+- Register
+- Login
+- View Dashboard
+- View Profile
+- Edit Profile
+- Change Password
+
+The application uses Amazon RDS MySQL as the backend database and is deployed on Apache Tomcat running on Amazon EC2 instances behind an Application Load Balancer.
+
+---
+
+# 🏗 Architecture
 
 ![3-Tier Architecture](https://imgur.com/3XF0tlJ.png)
 
-## Architecture Flow
-
 ```
-                 Internet
-                     │
-                     ▼
-        Application Load Balancer
-                     │
-                     ▼
-          Apache Tomcat on EC2
-                     │
-                     ▼
-      Spring Boot EmployeeHub App
-                     │
-                     ▼
-            Amazon RDS MySQL
+                    Internet
+                        │
+                        ▼
+          Application Load Balancer
+                        │
+                        ▼
+            Apache Tomcat on EC2
+                        │
+                        ▼
+        Spring Boot EmployeeHub App
+                        │
+                        ▼
+              Amazon RDS MySQL
 ```
 
 ---
 
-# ✨ Features
-
-- User Registration
-- User Login
-- Employee Dashboard
-- Profile Management
-- Edit Profile
-- Change Password
-- Session Management
-- Responsive Bootstrap UI
-- JDBC Database Connectivity
-- Amazon RDS Integration
-- AWS EC2 Deployment
-- Apache Tomcat Deployment
-
----
-
-# 🛠 Technology Stack
-
-## Frontend
-
-- HTML5
-- CSS3
-- Bootstrap 5
-- JavaScript
-- JSP
-
-## Backend
-
-- Java 11
-- Spring Boot 2.7
-- Spring MVC
-- JDBC
-- Apache Tomcat 9
-
-## Database
-
-- Amazon RDS MySQL
-
-## Cloud Services
+# ☁ AWS Services Used
 
 - Amazon EC2
-- Amazon RDS
 - Amazon VPC
 - Public & Private Subnets
 - Internet Gateway
 - NAT Gateway
-- Application Load Balancer (ALB)
+- Route Tables
 - Security Groups
-
-## Build Tool
-
-- Maven
-
-## Version Control
-
-- Git
-- GitHub
-
----
-
-# ☁️ AWS Architecture Components
-
-## Presentation Tier
-
 - Application Load Balancer
-- Browser Access
-
-## Application Tier
-
-- Amazon EC2
-- Apache Tomcat
-- Spring Boot Application
-
-## Database Tier
-
+- Target Groups
 - Amazon RDS MySQL
+- Apache Tomcat
+- Maven
+- Git & GitHub
 
 ---
 
-# 📂 Project Structure
+# 🚀 Infrastructure Setup
 
-```
-EmployeeHub
-│
-├── src
-│   ├── main
-│   │   ├── java
-│   │   ├── resources
-│   │   └── webapp
-│   │        └── pages
-│   │
-│   ├── pom.xml
-│   └── README.md
-│
-└── target
-```
+## Step 1 – Create VPC
 
----
+- Create a custom VPC
+- Configure CIDR block
+- Enable DNS Hostnames
+- Enable DNS Resolution
 
-# 🗄 Database
+## Step 2 – Create Public & Private Subnets
 
-## Database Name
+- Public Subnet (AZ-1)
+- Public Subnet (AZ-2)
+- Private Subnet (AZ-1)
+- Private Subnet (AZ-2)
+
+## Step 3 – Create Internet Gateway
+
+- Create Internet Gateway
+- Attach to VPC
+
+## Step 4 – Create NAT Gateway
+
+- Allocate Elastic IP
+- Create NAT Gateway in Public Subnet
+- Update Private Route Table
+
+## Step 5 – Configure Route Tables
+
+Public Route Table
+
+| Destination | Target |
+|-------------|--------|
+| 0.0.0.0/0 | Internet Gateway |
+
+Private Route Table
+
+| Destination | Target |
+|-------------|--------|
+| 0.0.0.0/0 | NAT Gateway |
+
+## Step 6 – Configure Security Groups
+
+### ALB Security Group
+
+- HTTP (80)
+- HTTPS (443)
+
+### EC2 Security Group
+
+- SSH (22)
+- HTTP (80)
+- Tomcat (8080)
+
+### RDS Security Group
+
+- MySQL (3306)
+- Source: EC2 Security Group
+
+## Step 7 – Launch EC2
+
+Install:
+
+- Java 11
+- Apache Tomcat 9
+- Maven
+- Git
+
+## Step 8 – Create Amazon RDS
+
+Engine:
+
+- MySQL
+
+Database:
 
 ```
 UserDB
 ```
 
-## Table
+Table:
 
 ```
 Employee
 ```
 
-## Table Structure
-
-| Column | Type |
-|---------|------|
-| id | INT |
-| first_name | VARCHAR |
-| last_name | VARCHAR |
-| email | VARCHAR |
-| username | VARCHAR |
-| password | VARCHAR |
-| regdate | DATE |
-
 ---
 
-# ⚙️ Database Configuration
+# 🗄 Database Configuration
 
-For security reasons, database credentials are **not stored in the repository**.
+For security reasons, database credentials are **not included** in this repository.
 
-Configure the following environment variables before running the application:
+Configure these environment variables before running the application:
 
 ```bash
-DB_URL=jdbc:mysql://<RDS-ENDPOINT>:3306/<DATABASE_NAME>
+DB_URL=jdbc:mysql://<RDS-ENDPOINT>:3306/UserDB
 DB_USERNAME=<YOUR_DB_USERNAME>
 DB_PASSWORD=<YOUR_DB_PASSWORD>
 ```
 
-The application reads these values from `application.properties`.
-
 ---
 
-# 🚀 Build Project
-
-Clone the repository
+# 🛠 Build the Project
 
 ```bash
 git clone https://github.com/jala-shivaprasad/Deploy-Java-Application-on-AWS-3-Tier-Architecture.git
-```
 
-Go to project directory
-
-```bash
 cd EmployeeHub
-```
 
-Build
-
-```bash
 mvn clean package
 ```
 
@@ -214,20 +199,38 @@ mvn clean package
 
 # 🚀 Deploy to Apache Tomcat
 
-Copy WAR
-
 ```bash
 sudo cp target/dptweb-1.0.war /opt/tomcat/webapps/
-```
 
-Restart Tomcat
-
-```bash
 sudo /opt/tomcat/bin/shutdown.sh
+
 sudo /opt/tomcat/bin/startup.sh
 ```
 
-Application URL
+---
+
+# ⚖ Configure Target Group
+
+- Target Type: Instance
+- Protocol: HTTP
+- Port: 8080
+- Health Check Path:
+
+```
+/dptweb-1.0/
+```
+
+Register backend EC2 instances.
+
+---
+
+# 🌐 Configure Application Load Balancer
+
+- Internet-facing
+- Listener: HTTP (80)
+- Forward requests to Target Group
+
+Verify:
 
 ```
 http://<ALB-DNS>/dptweb-1.0/
@@ -235,59 +238,97 @@ http://<ALB-DNS>/dptweb-1.0/
 
 ---
 
+# 📂 Project Structure
+
+```text
+EmployeeHub
+├── src
+│   ├── main
+│   │   ├── java
+│   │   ├── resources
+│   │   └── webapp
+├── pom.xml
+├── README.md
+└── target
+```
+
+---
+
+# 🛠 Technology Stack
+
+### Frontend
+- HTML5
+- CSS3
+- Bootstrap 5
+- JavaScript
+- JSP
+
+### Backend
+- Java 11
+- Spring Boot
+- Spring MVC
+- JDBC
+- Apache Tomcat
+
+### Database
+- Amazon RDS MySQL
+
+### Cloud
+- AWS EC2
+- VPC
+- ALB
+- RDS
+- Security Groups
+- NAT Gateway
+
+### Build
+- Maven
+
+### Version Control
+- Git
+- GitHub
+
+---
+
 # 📸 Screenshots
 
-Include screenshots of:
+Add screenshots for:
 
 - Login Page
 - Registration Page
 - Dashboard
-- Profile Page
+- Profile
 - AWS Architecture
-- Amazon EC2
-- Amazon RDS
-- Application Load Balancer
-- Target Group (Healthy)
+- EC2
+- RDS
+- ALB
+- Target Group
 
 ---
 
-# 🔒 Security
-
-- Session Authentication
-- AWS Security Groups
-- Private Amazon RDS
-- JDBC Database Connectivity
-- Environment Variable Based Database Configuration
-
----
-
-# 📈 Future Improvements
+# 🔮 Future Enhancements
 
 - Docker
 - Kubernetes (Amazon EKS)
-- Jenkins CI/CD Pipeline
+- Jenkins CI/CD
 - Terraform
 - GitHub Actions
-- AWS CodePipeline
 - Prometheus
 - Grafana
-- AWS CloudWatch Monitoring
+- CloudWatch Monitoring
 
 ---
 
-# 🎯 Learning Outcomes
-
-Through this project, I gained hands-on experience with:
+# 📚 Learning Outcomes
 
 - AWS Networking
-- Amazon EC2
-- Apache Tomcat Deployment
-- Spring Boot WAR Deployment
-- Amazon RDS MySQL
-- Application Load Balancer
 - VPC Design
-- Security Groups
-- Maven Build Automation
+- EC2 Deployment
+- Apache Tomcat
+- Spring Boot WAR Deployment
+- Amazon RDS
+- Application Load Balancer
+- Maven
 - Git & GitHub
 - Java Web Application Deployment
 
@@ -297,22 +338,15 @@ Through this project, I gained hands-on experience with:
 
 **JALA SHIVA PRASAD**
 
-GitHub
-
-https://github.com/jala-shivaprasad
-
-LinkedIn
-
-(Add your LinkedIn Profile URL)
+- GitHub: https://github.com/jala-shivaprasad
+- LinkedIn: *(Add your LinkedIn profile URL)*
 
 ---
 
 # ⭐ Support
 
-If you found this project helpful,
+If you found this project helpful:
 
-⭐ Star the repository
-
-🍴 Fork the repository
-
-📢 Share it with others
+- ⭐ Star the repository
+- 🍴 Fork the repository
+- 📢 Share it with others
