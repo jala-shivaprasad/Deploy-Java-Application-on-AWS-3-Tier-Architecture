@@ -1,37 +1,240 @@
-## Java Login App ##
-Testing 
+# EmployeeHub – Employee Management Portal on AWS 3-Tier Architecture
 
-## Sample Java Login application uses "UserDB" database and Table schema to store the Employee Login details. ##
+![AWS Architecture](https://imgur.com/b9iHwVc.png)
 
-## How to see list of Databases ##
-SHOW DATABASES;
+## 📌 Project Overview
 
-## How to create Database ##
+EmployeeHub is a Java Spring Boot web application deployed on AWS using a 3-Tier Architecture. The application allows employees to register, log in, manage their profiles, and securely store data in Amazon RDS MySQL.
 
-CREATE DATABASE UserDB;
+This project demonstrates cloud deployment, networking, application hosting, and database integration using AWS services.
 
-## How to list Tables ##
+---
 
-USE UserDB;
+## 🏗️ Architecture
 
-SHOW TABLES;
+![3-Tier Architecture](https://imgur.com/3XF0tlJ.png)
 
-## How to create Table ##
-## Below Query to create require TABLE schema to store Employee records ##
+### Architecture Flow
 
-CREATE TABLE Employee (
-  id int unsigned auto_increment not null,
-  first_name varchar(250),
-  last_name varchar(250),
-  email varchar(250),
-  username varchar(250),
-  password varchar(250),
-  regdate timestamp,
-  primary key (id)
-);
+```
+Users
+      │
+      ▼
+Application Load Balancer
+      │
+      ▼
+Apache Tomcat on EC2
+      │
+      ▼
+Spring Boot Application
+      │
+      ▼
+Amazon RDS MySQL
+```
 
-## List Table data ##
-SELECT * FROM Employee;
+---
 
-## Describe Table schema ##
-DESCRIBE Employee;
+# 🚀 Features
+
+- User Registration
+- User Login Authentication
+- Employee Dashboard
+- Employee Profile
+- Edit Profile
+- Change Password
+- Session Management
+- Responsive UI
+- MySQL Database Integration
+- AWS Cloud Deployment
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+- HTML5
+- CSS3
+- Bootstrap 5
+- JavaScript
+- JSP
+
+## Backend
+
+- Java 11
+- Spring Boot 2.7
+- Spring MVC
+- JDBC
+- Apache Tomcat
+
+## Database
+
+- Amazon RDS MySQL
+
+## Cloud
+
+- AWS EC2
+- Amazon VPC
+- Public & Private Subnets
+- Internet Gateway
+- NAT Gateway
+- Application Load Balancer
+- Security Groups
+
+## Build Tool
+
+- Maven
+
+## Version Control
+
+- Git
+- GitHub
+
+---
+
+# ☁️ AWS Services Used
+
+- Amazon EC2
+- Amazon RDS
+- Application Load Balancer
+- Amazon VPC
+- Security Groups
+- Internet Gateway
+- NAT Gateway
+
+---
+
+# 📂 Project Structure
+
+```
+EmployeeHub
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   ├── resources
+│   │   └── webapp
+│   │        └── pages
+│
+├── pom.xml
+└── README.md
+```
+
+---
+
+# ⚙️ Deployment Steps
+
+## Clone Repository
+
+```bash
+git clone https://github.com/jala-shivaprasad/Deploy-Java-Application-on-AWS-3-Tier-Architecture.git
+```
+
+---
+
+## Build Project
+
+```bash
+mvn clean package
+```
+
+---
+
+## Deploy WAR
+
+```bash
+sudo cp target/dptweb-1.0.war /opt/tomcat/webapps/
+```
+
+Restart Tomcat
+
+```bash
+sudo /opt/tomcat/bin/shutdown.sh
+sudo /opt/tomcat/bin/startup.sh
+```
+
+---
+
+# 🗄 Database
+
+Database: **Amazon RDS MySQL**
+
+Database Name
+
+```
+UserDB
+```
+
+Table
+
+```
+Employee
+```
+
+Columns
+
+```
+id
+first_name
+last_name
+email
+username
+password
+regdate
+```
+
+---
+
+# 🔐 Security
+
+- AWS Security Groups
+- Private RDS
+- Session Authentication
+- JDBC Database Connectivity
+
+---
+
+# 📷 Screenshots
+
+Add screenshots of:
+
+- Login Page
+- Registration Page
+- Dashboard
+- Profile Page
+- AWS Architecture
+- ALB
+- EC2
+- Amazon RDS
+
+---
+
+# 📈 Future Enhancements
+
+- Docker
+- Kubernetes (Amazon EKS)
+- Jenkins CI/CD
+- Terraform
+- AWS CodePipeline
+- Monitoring with Prometheus & Grafana
+- CloudWatch Logging
+
+---
+
+# 👨‍💻 Author
+
+**JALA SHIVA PRASAD**
+
+GitHub
+
+https://github.com/jala-shivaprasad
+
+LinkedIn
+
+(Add your LinkedIn profile URL)
+
+---
+
+# ⭐ If you found this project helpful
+
+Please consider giving this repository a ⭐ on GitHub.
