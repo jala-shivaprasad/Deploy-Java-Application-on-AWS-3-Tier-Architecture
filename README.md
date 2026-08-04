@@ -28,7 +28,6 @@
 - [Database Configuration](#-database-configuration)
 - [Project Structure](#-project-structure)
 - [Build & Run Locally](#-build--run-locally)
-- [Screenshots](#-screenshots)
 - [Security](#-security)
 - [Troubleshooting](#-troubleshooting)
 - [Future Enhancements](#-future-enhancements)
@@ -483,31 +482,6 @@ http://localhost:8080/dptweb-1.0/
 ```
 *(On AWS, replace `localhost:8080` with your ALB's DNS name, per the [deployment guide](#-aws-deployment-guide).)*
 
----
-
-## 📸 Screenshots
-
-> Add your own screenshots to an `images/` folder at the project root using the file names below.
-
-| Home | Login | Register |
-|---|---|---|
-| ![Home](images/home.png) | ![Login](images/login.png) | ![Register](images/register.png) |
-
-| Dashboard | Profile |
-|---|---|
-| ![Dashboard](images/dashboard.png) | ![Profile](images/profile.png) |
-
-### AWS Infrastructure
-
-| AWS Architecture | ALB | EC2 |
-|---|---|---|
-| ![AWS Architecture](images/aws-architecture.png) | ![ALB](images/alb.png) | ![EC2](images/ec2.png) |
-
-| RDS | Target Group |
-|---|---|
-| ![RDS](images/rds.png) | ![Target Group](images/target-group.png) |
-
----
 
 ## 🔐 Security
 
